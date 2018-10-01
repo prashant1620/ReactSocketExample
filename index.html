@@ -1,0 +1,70 @@
+<html>
+ <title>Socket </title>
+  <style>
+    #div2{
+        background-color :rgb(81, 155, 190) ;
+        padding: 5px;
+        margin: 5px;
+        border-radius: 5px;
+        height: 500px;
+         }
+         #tx2{
+             width: 500px;
+         }
+         #div2,#div3{
+                 display: none;
+         }
+  </style>
+ <body>
+     <h4>SocketIO</h4>
+  <div id="div1">
+    Name:<input type="text"  placeholder="Enter Name" id="tx1">
+       <input type="button" value="Connect" id="button1">
+  </div>
+  <div id="div2">
+  </div>
+  <div id="div3">
+       <form>
+             <fieldset>
+                  <legend>Send Your Message</legend>
+                  <input type="text" id="tx2" placeholder="Message">
+                  <input type="button"  value="Send" id="button2">
+             </fieldset>
+      </form> </div>
+
+<script src="\node_modules\socket.io-client\dist\socket.io.js"></script>
+<center>
+ <script>
+     document.getElementById("button1").addEventListener("click",fun1);
+     function fun1()
+     {
+  var server=io.connect("ws://localhost:7171");
+     server.on("connect",function(){
+         document.getElementById("div2").style.display="block";
+         document.getElementById("tx1").setAttribute("disabled","disabled");
+         document.getElementById("button1").style.display="none";
+         document.getElementById("div3").style.display="block";
+         document.getElementById("div2").innerHTML+="Connected to server<br>";
+     });
+
+     server.on("myevent",function(data){
+        document.getElementById("div2").innerHTML+=data+ "<br>";
+
+     });
+     document.getElementById("button2").addEventListener("click",fun2);
+     function fun2()
+     {
+       var msg=document.getElementById("tx1").value+": "+document.getElementById("tx2").value;
+       server.emit("myevent2",msg);
+       document.getElementById("tx2").value="";
+       document.getElementById("tx2").focus();
+     }
+
+     }
+ </script></center>
+
+ </body>
+
+
+
+</html>

@@ -1,0 +1,11 @@
+{
+    "name": "myapp",
+    "version": "1.0.0",
+    "repository": "none",
+    "description": "none",
+    "license": "none",
+    "dependencies": {
+        "express": "latest",
+        "socket.io": "latest"
+    }
+}
